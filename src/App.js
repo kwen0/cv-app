@@ -3,6 +3,7 @@ import './App.css';
 import Header from "./components/Header";
 import Contact from "./components/Contact";
 import ContactSaved from './components/ContactSaved';
+import Education from './components/Education';
 
 class App extends React.Component {
   constructor() {
@@ -15,6 +16,11 @@ class App extends React.Component {
         phone: ''
       },
       editContactButton: true,
+      edu: {
+        school: '',
+        major: '',
+        years: ''
+      }
     }
   }
 
@@ -30,21 +36,29 @@ class App extends React.Component {
       }
     })
   }
+  handleEduChange = (e) => {
+    this.setState({
+      edu: {
+        ...this.state.edu,
+        [e.target.id]: e.target.value
+      }
+    })
+  }
 
   render() {
-    const { editContactButton } = this.state;
+    const { editContactButton, contact, edu } = this.state;
     return <div>
       <Header />
       {editContactButton ?
         <div>
-          <Contact contact={this.state.contact} handleChange={this.handleContactChange} />
+          <Contact contact={contact} handleChange={this.handleContactChange} />
           <button onClick={this.toggleContactButton}>Save</button>
         </div> :
-        <div><ContactSaved contact={this.state.contact} />
+        <div><ContactSaved contact={contact} />
           <button onClick={this.toggleContactButton}>Edit</button>
         </div>
       }
-
+      <Education edu={edu} handleChange={this.handleEduChange} />
 
     </div>
   }
