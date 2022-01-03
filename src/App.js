@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Header from "./components/Header";
 import Contact from "./components/Contact";
+import ContactSaved from './components/ContactSaved';
 
 class App extends React.Component {
   constructor() {
@@ -12,9 +13,14 @@ class App extends React.Component {
         name: '',
         email: '',
         phone: ''
-      }
+      },
+      editContactButton: true,
     }
   }
+
+  toggleContactButton = () => {
+    this.setState({ editContactButton: !this.state.editContactButton });
+  };
 
   handleContactChange = (e) => {
     this.setState({
@@ -25,17 +31,21 @@ class App extends React.Component {
     })
   }
 
-  handleContactSubmit = (e) => {
-    e.preventDefault();
-    console.log(this.state.contact.name)
-    console.log(this.state.contact.email)
-    console.log(this.state.contact.phone)
-  }
-
   render() {
+    const { editContactButton } = this.state;
     return <div>
       <Header />
-      <Contact contact={this.state.contact} handleChange={this.handleContactChange} handleSubmit={this.handleContactSubmit} />
+      {editContactButton ?
+        <div>
+          <Contact contact={this.state.contact} handleChange={this.handleContactChange} />
+          <button onClick={this.toggleContactButton}>Save</button>
+        </div> :
+        <div><ContactSaved contact={this.state.contact} />
+          <button onClick={this.toggleContactButton}>Edit</button>
+        </div>
+      }
+
+
     </div>
   }
 }
