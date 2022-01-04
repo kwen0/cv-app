@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Contact from "./components/Contact";
 import ContactSaved from './components/ContactSaved';
 import Education from './components/Education';
+import EducationSaved from './components/EducationSaved'
 
 class App extends React.Component {
   constructor() {
@@ -15,18 +16,24 @@ class App extends React.Component {
         email: '',
         phone: ''
       },
-      editContactButton: true,
+      editContact: true,
       edu: {
         school: '',
         major: '',
         years: ''
-      }
+      },
+      eduList: [],
+      editEdu: true,
     }
   }
 
-  toggleContactButton = () => {
-    this.setState({ editContactButton: !this.state.editContactButton });
-  };
+  toggleEditContact = () => {
+    this.setState({ editContact: !this.state.editContact })
+  }
+
+  toggleEditEdu = () => {
+    this.setState({ editEdu: !this.state.editEdu })
+  }
 
   handleContactChange = (e) => {
     this.setState({
@@ -36,6 +43,7 @@ class App extends React.Component {
       }
     })
   }
+
   handleEduChange = (e) => {
     this.setState({
       edu: {
@@ -45,22 +53,49 @@ class App extends React.Component {
     })
   }
 
+  handleEduSubmit = (e) => {
+    e.preventDefault();
+    this.setState({
+      eduList: this.state.eduList.concat(this.state.edu),
+      edu: {
+        school: '',
+        major: '',
+        years: ''
+      },
+      editEdu: !this.state.editEdu
+    })
+  }
+
   render() {
-    const { editContactButton, contact, edu } = this.state;
+    const { editContact, contact, edu, editEdu, eduList } = this.state;
     return <div>
       <Header />
-      {editContactButton ?
+      {editContact ?
         <div>
           <Contact contact={contact} handleChange={this.handleContactChange} />
-          <button onClick={this.toggleContactButton}>Save</button>
+          <button onClick={this.toggleEditContact}>Save</button>
         </div> :
-        <div><ContactSaved contact={contact} />
-          <button onClick={this.toggleContactButton}>Edit</button>
+        <div>
+          <ContactSaved contact={contact} />
+          <button onClick={this.toggleEditContact}>Edit</button>
         </div>
       }
-      <Education edu={edu} handleChange={this.handleEduChange} />
+      {editEdu ?
+        <div>
+          <div className="section-title">Education</div>
+          <EducationSaved eduList={eduList} />
+          <Education edu={edu} handleChange={this.handleEduChange} handleSubmit={this.handleEduSubmit} />
+        </div> :
+        <div>
+          <div className="section-title">Education</div>
+          <EducationSaved eduList={eduList} />
+          <button onClick={this.toggleEditEdu}>Add</button>
+        </div>
+      }
 
-    </div>
+      {/* <Education edu={edu} handleChange={this.handleEduChange} handleSubmit={this.handleEduSubmit} /> */}
+      {/* <EducationSaved eduList={eduList} /> */}
+    </div >
   }
 }
 
