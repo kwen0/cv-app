@@ -1,28 +1,35 @@
 import React from "react";
 
-class Education extends React.Component {
+class Work extends React.Component {
     render() {
         return <div>
             <form onSubmit={this.props.handleSubmit}>
-                School:
+                Company:
                 <input
                     type="text"
                     onChange={this.props.handleChange}
-                    value={this.props.edu.school}
-                    id="school" />
+                    value={this.props.work.company}
+                    id="company" />
                 <br></br>
-                Major:
+                Position:
                 <input
                     type="text"
                     onChange={this.props.handleChange}
-                    value={this.props.edu.major}
-                    id="major" />
+                    value={this.props.work.position}
+                    id="position" />
                 <br></br>
-                Years attended:
+                Main Tasks:
+                <textarea
+                    type="text"
+                    onChange={this.props.handleChange}
+                    value={this.props.work.tasks}
+                    id="tasks" />
+                <br></br>
+                Start date to end date:
                 <input
                     type="text"
                     onChange={this.props.handleChange}
-                    value={this.props.edu.years}
+                    value={this.props.work.years}
                     id="years" />
                 <br></br>
                 <button>Save</button>
@@ -31,4 +38,4 @@ class Education extends React.Component {
     }
 }
 
-export default Education;
+export default Work;

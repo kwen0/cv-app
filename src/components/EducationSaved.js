@@ -11,6 +11,9 @@ class EducationSaved extends React.Component {
                         Major: {edu.major}
                         <br></br>
                         Years attended: {edu.years}
+                        <br></br>
+                        <button onClick={() => this.props.editButton(edu.id)}>Edit</button>
+                        <button onClick={() => this.props.delButton(edu.id)}>Remove</button>
                     </div>
                 })}
             </div >

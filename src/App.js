@@ -4,7 +4,8 @@ import Header from "./components/Header";
 import Contact from "./components/Contact";
 import ContactSaved from './components/ContactSaved';
 import Education from './components/Education';
-import EducationSaved from './components/EducationSaved'
+import EducationSaved from './components/EducationSaved';
+import Work from './components/Work'
 
 class App extends React.Component {
   constructor() {
@@ -18,12 +19,21 @@ class App extends React.Component {
       },
       editContact: true,
       edu: {
+        id: Date.now().toString(),
         school: '',
         major: '',
         years: ''
       },
       eduList: [],
       editEdu: true,
+      work: {
+        company: '',
+        position: '',
+        tasks: '',
+        years: ''
+      },
+      workList: [],
+      editWork: true,
     }
   }
 
@@ -33,6 +43,10 @@ class App extends React.Component {
 
   toggleEditEdu = () => {
     this.setState({ editEdu: !this.state.editEdu })
+  }
+
+  toggleEditWork = () => {
+    this.setState({ editWork: !this.state.editWork })
   }
 
   handleContactChange = (e) => {
@@ -53,11 +67,21 @@ class App extends React.Component {
     })
   }
 
+  handleWorkChange = (e) => {
+    this.setState({
+      work: {
+        ...this.state.work,
+        [e.target.id]: e.target.value
+      }
+    })
+  }
+
   handleEduSubmit = (e) => {
     e.preventDefault();
     this.setState({
       eduList: this.state.eduList.concat(this.state.edu),
       edu: {
+        id: Date.now().toString(),
         school: '',
         major: '',
         years: ''
@@ -66,10 +90,32 @@ class App extends React.Component {
     })
   }
 
+  handleWorkSubmit = (e) => {
+    e.preventDefault();
+    this.setState({
+      workList: this.state.workList.concat(this.state.work),
+      work: {
+        company: '',
+        position: '',
+        tasks: '',
+        years: ''
+      },
+      editWork: !this.state.editWork
+    })
+  }
+
+  delEduButton = (id) => {
+    this.setState({
+      eduList: this.state.eduList.filter(edu => edu.id !== id)
+    })
+  }
+
   render() {
-    const { editContact, contact, edu, editEdu, eduList } = this.state;
+    const { contact, editContact, edu, eduList, editEdu, work, workList, editWork } = this.state;
     return <div>
       <Header />
+
+      {/* Contact Information Section */}
       {editContact ?
         <div>
           <Contact contact={contact} handleChange={this.handleContactChange} />
@@ -80,21 +126,29 @@ class App extends React.Component {
           <button onClick={this.toggleEditContact}>Edit</button>
         </div>
       }
+
+      {/* Education Section */}
+      <div className="section-title">Education</div>
+      <EducationSaved eduList={eduList} delButton={this.delEduButton} />
       {editEdu ?
         <div>
-          <div className="section-title">Education</div>
-          <EducationSaved eduList={eduList} />
           <Education edu={edu} handleChange={this.handleEduChange} handleSubmit={this.handleEduSubmit} />
         </div> :
         <div>
-          <div className="section-title">Education</div>
-          <EducationSaved eduList={eduList} />
           <button onClick={this.toggleEditEdu}>Add</button>
         </div>
       }
 
-      {/* <Education edu={edu} handleChange={this.handleEduChange} handleSubmit={this.handleEduSubmit} /> */}
-      {/* <EducationSaved eduList={eduList} /> */}
+      {/* Professional Experience Section */}
+      <div className="section-title">Professional Experience</div>
+      {editWork ?
+        <div>
+          <Work work={work} handleChange={this.handleWorkChange} handleSubmit={this.handleWorkSubmit} />
+        </div>
+        :
+        null
+      }
+
     </div >
   }
 }

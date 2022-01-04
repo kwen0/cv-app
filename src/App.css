@@ -10,7 +10,7 @@ body {
 }
 
 
-input {
+input, textarea {
     font-size: 15px;
     background: rgb(199, 199, 199);
     border: none;
