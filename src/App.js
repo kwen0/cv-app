@@ -6,6 +6,7 @@ import ContactSaved from './components/ContactSaved';
 import Education from './components/Education';
 import EducationSaved from './components/EducationSaved';
 import Work from './components/Work'
+import WorkSaved from './components/WorkSaved'
 
 class App extends React.Component {
   constructor() {
@@ -110,6 +111,12 @@ class App extends React.Component {
     })
   }
 
+  delWorkButton = (company) => {
+    this.setState({
+      workList: this.state.workList.filter(work => work.company !== company)
+    })
+  }
+
   render() {
     const { contact, editContact, edu, eduList, editEdu, work, workList, editWork } = this.state;
     return <div>
@@ -131,22 +138,20 @@ class App extends React.Component {
       <div className="section-title">Education</div>
       <EducationSaved eduList={eduList} delButton={this.delEduButton} />
       {editEdu ?
-        <div>
-          <Education edu={edu} handleChange={this.handleEduChange} handleSubmit={this.handleEduSubmit} />
-        </div> :
-        <div>
-          <button onClick={this.toggleEditEdu}>Add</button>
-        </div>
+        <Education edu={edu} handleChange={this.handleEduChange} handleSubmit={this.handleEduSubmit} />
+        :
+        <button onClick={this.toggleEditEdu}>Add</button>
       }
 
       {/* Professional Experience Section */}
       <div className="section-title">Professional Experience</div>
+      <WorkSaved workList={workList} delButton={this.delWorkButton} />
       {editWork ?
         <div>
           <Work work={work} handleChange={this.handleWorkChange} handleSubmit={this.handleWorkSubmit} />
         </div>
         :
-        null
+        <button onClick={this.toggleEditWork}>Add</button>
       }
 
     </div >
