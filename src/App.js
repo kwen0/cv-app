@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Contact from './components/Contact';
 import Education from './components/Education'
+import Work from './components/Work'
 import './App.css';
 
 function App() {
@@ -11,7 +12,7 @@ function App() {
       <h3>Enter the details below in order to generate your CV.</h3>
       <Contact />
       <Education />
-
+      <Work />
     </div>
   )
 }
