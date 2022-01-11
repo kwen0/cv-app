@@ -67,7 +67,7 @@ function Work() {
                         id="position"
                         onChange={handleEditInputChange} />
                     <br></br>
-                    Main Tasks: <input type="textarea"
+                    Main Tasks: <textarea
                         value={currentWork.tasks}
                         id="tasks"
                         onChange={handleEditInputChange} />
@@ -91,7 +91,7 @@ function Work() {
                         id="position"
                         onChange={handleChange} />
                     <br></br>
-                    Main Tasks: <input type="textarea"
+                    Main Tasks: <textarea
                         value={work.tasks}
                         id="tasks"
                         onChange={handleChange} />

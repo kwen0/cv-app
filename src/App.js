@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Contact from './components/Contact';
-import Education from './components/Education'
-import Work from './components/Work'
+import Education from './components/Education';
+import Work from './components/Work';
 import './App.css';
 
 function App() {
 
   return (
-    <div>
+    <div className="container">
       <h2>Welcome!</h2>
       <h3>Enter the details below in order to generate your CV.</h3>
       <Contact />

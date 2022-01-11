@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 function Contact() {
     const [name, setName] = useState('');
@@ -37,14 +37,15 @@ function Contact() {
                     </label><br></br>
                     <button>Save</button>
                 </form>
-            </div> :
+            </div > :
                 <div>
                     Name: {name} <br></br>
                     Email: {email}<br></br>
                     Phone: {phone}<br></br>
                     <button onClick={() => setEditMode(true)}>Edit</button>
-                </div>}
-        </div>
+                </div>
+            }
+        </div >
     )
 }
 export default Contact;
